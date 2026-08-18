@@ -1,47 +1,38 @@
 const WebSocket = require("ws");
 
 // ==========================================
-// Connect to WebSocket Server
+// Render WebSocket URL
 // ==========================================
 
-const socket = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket(
+  "wss://grpc-project-1-wlyy.onrender.com"
+);
 
 // ==========================================
 // Connection Open
 // ==========================================
 
-socket.on("open", () => {
-  console.log("Connected to WebSocket server");
+ws.on("open", () => {
+  console.log("Connected to Render WebSocket server");
 
-  // Message 1
-  socket.send("Hello Server!");
-
-  // Message 2
-  setTimeout(() => {
-    socket.send("How are you?");
-  }, 1000);
-
-  // Message 3
-  setTimeout(() => {
-    socket.send("This is WebSocket!");
-  }, 2000);
+  ws.send("Hello Render!");
+  ws.send("How are you?");
+  ws.send("This is deployed WebSocket!");
 });
 
 // ==========================================
 // Receive Messages
 // ==========================================
 
-socket.on("message", (data) => {
-  const response = JSON.parse(data.toString());
-
-  console.log("Server:", response.message);
+ws.on("message", (message) => {
+  console.log("Server:", message.toString());
 });
 
 // ==========================================
-// Connection Close
+// Connection Closed
 // ==========================================
 
-socket.on("close", () => {
+ws.on("close", () => {
   console.log("WebSocket connection closed");
 });
 
@@ -49,6 +40,6 @@ socket.on("close", () => {
 // Error
 // ==========================================
 
-socket.on("error", (error) => {
+ws.on("error", (error) => {
   console.error("WebSocket error:", error.message);
 });
