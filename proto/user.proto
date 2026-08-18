@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package user;
+
+// ==========================================
+// User Service
+// ==========================================
+
+service UserService {
+
+  // 1. Unary RPC
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+
+  // 2. Unary RPC
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+
+  // 3. Unary RPC
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+
+  // 4. Unary RPC
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+
+  // 5. Server Streaming RPC
+  rpc GetUsers(GetUsersRequest) returns (stream UserResponse);
+
+  // 6. Client Streaming RPC
+  rpc CreateUsers(stream CreateUserRequest)
+      returns (CreateUsersResponse);
+
+  // 7. Bidirectional Streaming RPC
+  rpc Chat(stream ChatMessage)
+      returns (stream ChatMessage);
+}
+
+// ==========================================
+// Get User Request
+// ==========================================
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+// ==========================================
+// Get Users Request
+// ==========================================
+
+message GetUsersRequest {
+}
+
+// ==========================================
+// Create User Request
+// ==========================================
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+}
+
+// ==========================================
+// Create Users Response
+// ==========================================
+
+message CreateUsersResponse {
+  int32 count = 1;
+  string message = 2;
+}
+
+// ==========================================
+// Update User Request
+// ==========================================
+
+message UpdateUserRequest {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+// ==========================================
+// Delete User Request
+// ==========================================
+
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+// ==========================================
+// Delete User Response
+// ==========================================
+
+message DeleteUserResponse {
+  int32 id = 1;
+  string message = 2;
+}
+
+// ==========================================
+// User Response
+// ==========================================
+
+message UserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+// ==========================================
+// Chat Message
+// ==========================================
+
+message ChatMessage {
+  string username = 1;
+  string message = 2;
+}
